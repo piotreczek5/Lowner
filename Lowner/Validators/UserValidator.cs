@@ -20,11 +20,6 @@ namespace Lowner.Validators
         {
             errorString = String.Empty;
 
-            if (user.Name == null)
-            {
-                errorString += "Could not add user. You must provide username.";
-            }
-
             if (_userRepository.GetUsers().Contains(user))
             {
                 errorString += "Could not add user. User already exists.";

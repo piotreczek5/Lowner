@@ -9,6 +9,7 @@ namespace Lowner.Models
     public class User
     {
         public int UserId { get; set; }
+        [Required]
         public string Name { get; set; }
 
         public override bool Equals(object obj)

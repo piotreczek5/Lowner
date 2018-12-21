@@ -16,7 +16,6 @@ namespace Lowner.Controllers
         private readonly IUserRepository _userRepository;
         private readonly UserValidator _userValidator;
 
-
         public UserController(IUserRepository userRepository, UserValidator userValidator)
         {
             _userRepository = userRepository;
