@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lowner.Context;
 using Lowner.Repositories;
+using Lowner.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,9 +22,12 @@ namespace Lowner
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddTransient<LoanValidator>();
+            services.AddTransient<UserValidator>();
             services.AddEntityFrameworkSqlServer().AddDbContext<LoanContext>(options => options.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Trusted_Connection=True;Database=Lowner"));
             services.AddTransient<ILoanRepository, DbLoanRepository>();
-            services.AddTransient<IUserRepository, DbUserRepository>();            
+            services.AddTransient<IUserRepository, DbUserRepository>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

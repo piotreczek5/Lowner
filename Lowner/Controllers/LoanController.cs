@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Lowner.Models;
 using Lowner.Models.Contracts;
 using Lowner.Repositories;
+using Lowner.Validators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,13 +17,14 @@ namespace Lowner.Controllers
     {
         private readonly ILoanRepository _loanRepository;
         private readonly IUserRepository _userRepository;
+        private readonly LoanValidator _loanValidator;
 
-        public LoanController(ILoanRepository loanRepository, IUserRepository userRepository)
+        public LoanController(ILoanRepository loanRepository, IUserRepository userRepository, LoanValidator loanValidator)
         {
             _loanRepository = loanRepository;
             _userRepository = userRepository;
+            _loanValidator = loanValidator;
         }
-
 
         [HttpPost]
         [Route("AddLoan")]
@@ -30,7 +32,7 @@ namespace Lowner.Controllers
         {
             string errorString;
 
-            if(LoanIsValid(item,out errorString))
+            if(_loanValidator.AddLoanIsValid(item,out errorString))
             {
                 return BadRequest(new JsonResult(errorString));
             }
@@ -38,42 +40,6 @@ namespace Lowner.Controllers
             _loanRepository.AddLoan(item);
 
             return Ok(item);
-        }
-
-        private bool LoanIsValid(Loan item, out string errorString)
-        {
-            errorString = String.Empty;
-            if(item.Quantity <= 0)
-            {
-                errorString += "Loan must be initiated with positive quantity.";
-            }
-
-            if (_loanRepository.GetLoans().Contains(item))
-            {
-                errorString += "Loan with those data already exists.";
-            }
-
-            if (_userRepository.GetUsers().Any(user => user.Name == item.Borrower) == false)
-            {
-                errorString += "Borrower does not exists." ;
-            }
-
-            if (_userRepository.GetUsers().Any(user => user.Name == item.Lender) == false)
-            {
-                errorString += "Lender does not exists.";
-            }
-
-            if (item.LoanPaymentDueDate < DateTime.Today)
-            {
-                errorString += "Date of loan cannot be in the past.";
-            }
-
-            if (item.Borrower == item.Lender )
-            {
-                errorString += "Lender cannot be the same as borrower.";
-            }
-
-            return errorString == String.Empty ? false : true;
         }
 
         [HttpGet]
@@ -94,14 +60,10 @@ namespace Lowner.Controllers
         [Route("PayLoan")]
         public ActionResult<Loan> PayLoan(PayLoanContract contract)
         {
-            if(contract.LoanId < 0) 
+            string errorString;
+            if (_loanValidator.PayLoanIsValid(contract, out errorString))
             {
-                return BadRequest(new JsonResult("Loan Id cannot be smaller than 0."));
-            }
-
-            if (contract.Quantity < 0)
-            {
-                return BadRequest(new JsonResult("Cannot pay negative quantity."));
+                return BadRequest(new JsonResult(errorString));
             }
 
             var loanItem = _loanRepository.GetLoanById(contract.LoanId);
@@ -120,14 +82,6 @@ namespace Lowner.Controllers
 
             return Ok(loanItem);
         }
-
-        [HttpGet]
-        [Route("GetLoans")]
-        public ActionResult<List<User>> GetLoans()
-        {
-            return Ok(_loanRepository.GetLoans());
-        }
-
 
         [HttpGet]
         [Route("GetBorrowersAndLenders")]

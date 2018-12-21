@@ -1,5 +1,6 @@
 ﻿using Lowner.Models;
 using Lowner.Repositories;
+using Lowner.Validators;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,13 @@ namespace Lowner.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
+        private readonly UserValidator _userValidator;
 
-        public UserController(IUserRepository userRepository)
+
+        public UserController(IUserRepository userRepository, UserValidator userValidator)
         {
             _userRepository = userRepository;
+            _userValidator = userValidator;
         }
 
         [HttpPost]
@@ -25,9 +29,9 @@ namespace Lowner.Controllers
         {
             string errorString;
 
-            if (UserIsValid(user, out errorString))
+            if (_userValidator.AddUserIsValid(user, out errorString))
             {
-                return BadRequest(errorString);
+                return BadRequest(new JsonResult(errorString));
             }
             
             _userRepository.AddUser(user);
@@ -35,29 +39,7 @@ namespace Lowner.Controllers
             return Ok(user);
         }
 
-        private bool UserIsValid(User user, out string errorString)
-        {
-            errorString = String.Empty;
+       
 
-            if (user.Name == null)
-            {
-                errorString += "Could not add user. You must provide username.";
-            }
-
-            if (_userRepository.GetUsers().Contains(user))
-            {
-                errorString+= "Could not add user. User already exists.";
-            }
-
-            return errorString == String.Empty ? false : true;
-        }
-
-
-        [HttpPost]
-        [Route("GetUsers")]
-        public ActionResult<List<User>> GetUsers()
-        {
-            return Ok(_userRepository.GetUsers());
-        }
     }
 }
