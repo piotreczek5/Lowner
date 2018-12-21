@@ -1,0 +1,14 @@
+C:\Users\Piotrek\source\repos\Lowner\Lowner\bin\Debug\netcoreapp2.1\Lowner.deps.json
+C:\Users\Piotrek\source\repos\Lowner\Lowner\bin\Debug\netcoreapp2.1\Lowner.runtimeconfig.json
+C:\Users\Piotrek\source\repos\Lowner\Lowner\bin\Debug\netcoreapp2.1\Lowner.runtimeconfig.dev.json
+C:\Users\Piotrek\source\repos\Lowner\Lowner\bin\Debug\netcoreapp2.1\Lowner.dll
+C:\Users\Piotrek\source\repos\Lowner\Lowner\obj\Debug\netcoreapp2.1\Lowner.csprojAssemblyReference.cache
+C:\Users\Piotrek\source\repos\Lowner\Lowner\obj\Debug\netcoreapp2.1\Lowner.csproj.CoreCompileInputs.cache
+C:\Users\Piotrek\source\repos\Lowner\Lowner\obj\Debug\netcoreapp2.1\Lowner.RazorAssemblyInfo.cache
+C:\Users\Piotrek\source\repos\Lowner\Lowner\obj\Debug\netcoreapp2.1\Lowner.RazorAssemblyInfo.cs
+C:\Users\Piotrek\source\repos\Lowner\Lowner\obj\Debug\netcoreapp2.1\Lowner.AssemblyInfoInputs.cache
+C:\Users\Piotrek\source\repos\Lowner\Lowner\obj\Debug\netcoreapp2.1\Lowner.AssemblyInfo.cs
+C:\Users\Piotrek\source\repos\Lowner\Lowner\obj\Debug\netcoreapp2.1\Lowner.RazorTargetAssemblyInfo.cache
+C:\Users\Piotrek\source\repos\Lowner\Lowner\bin\Debug\netcoreapp2.1\Lowner.pdb
+C:\Users\Piotrek\source\repos\Lowner\Lowner\obj\Debug\netcoreapp2.1\Lowner.dll
+C:\Users\Piotrek\source\repos\Lowner\Lowner\obj\Debug\netcoreapp2.1\Lowner.pdb
