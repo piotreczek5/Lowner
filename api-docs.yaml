@@ -1,0 +1,74 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "https://localhost:44319"
+basePath: ""
+paths:
+  /api/loan/AddLoan:
+    post:
+      operationId: "AddLoan"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Request body"
+        required: true
+      responses:
+        0: {}
+        200: {}
+        400: {}
+        500: {}
+        502: {}
+  /api/loan/GetBorrowersAndLenders:
+    get:
+      operationId: "GetBorrowersAndLenders"
+      parameters: []
+      responses:
+        200: {}
+  /api/loan/GetLoansForUser:
+    get:
+      operationId: "GetLoansForUser"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        200: {}
+        400: {}
+        500: {}
+        404: {}
+  /api/loan/PayLoan:
+    post:
+      operationId: "PayLoan"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Request body"
+        required: true
+      responses:
+        200: {}
+        400: {}
+        502: {}
+        404: {}
+  /api/user/AddUser:
+    post:
+      operationId: "AddUser"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Request body"
+        required: true
+      responses:
+        200: {}
+        400: {}
+        500: {}
+        404: {}
